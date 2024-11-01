@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 namespace ThrownForALoop
 {
@@ -7,23 +8,45 @@ namespace ThrownForALoop
 
         static void Main(string[] args)
         {
-            string greeting = @"Welcome to thrown for a loop.
-            Your one stop shop for used sporting equipment.";
-            Console.WriteLine(greeting);
-            Console.WriteLine("Please choose an option: ");
-            string theMeaningOfLife = "forty-two";
-            Console.WriteLine(theMeaningOfLife);
-            Console.Write("Please enter a product line: ");
-            string response = Console.ReadLine().Trim();
-            while (string.IsNullOrEmpty(response))
+            Console.WriteLine(@"
+            Products: 
+            1. Football
+            2. Hockey Stick
+            3. Boomerang
+            4. Frisbee
+            5. Golf Putter");
+            Console.Write("Please enter a number from the products above: ");
+            String response = Console.ReadLine();
+            Console.WriteLine($"You chose {response}");
+            int parsedNumber;
+            bool isParsedSuccessfully = Int32.TryParse(response, out parsedNumber);
+            while (!isParsedSuccessfully || parsedNumber > 5 || parsedNumber < 1)
             {
-                Console.WriteLine("You didn't type anything.");
-                Console.Write("Try again: ");
-                response = Console.ReadLine().Trim();
+                Console.Write($"Choose a number between 1 and 5 not {response}: ");
+                response = Console.ReadLine();
+                isParsedSuccessfully = Int32.TryParse(response, out parsedNumber);
             }
-
-            Console.WriteLine(@$"You chose: {response}. 
-Thank you for your inputs.");
+            switch (parsedNumber)
+            {
+                case 1:
+                    Console.WriteLine("You chose Football");
+                    break;
+                case 2:
+                    Console.WriteLine("You chose Hockey Stick");
+                    break;
+                case 3:
+                    Console.WriteLine("You chose Boomerang");
+                    break;
+                case 4:
+                    Console.WriteLine("You chose Frisbee");
+                    break;
+                case 5:
+                    Console.WriteLine("You chose Golf Putter");
+                    break;
+                default:
+                    Console.WriteLine("You chose something other than what you should have.");
+                    break;
+            }
 
 
 
